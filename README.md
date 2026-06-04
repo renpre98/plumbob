@@ -6,7 +6,7 @@ real-world Plumbob in real time, with smooth color fades.
   
 To be clear. At the beginning I had no clue how to mod paralives and thus a lot of work, especially analyzing paralives, was done by an LLM. 
   
-![plumbob](https://github.com/renpre98/plumbob/blob/main/plumbob.jpeg")
+![plumbob](plumbob.jpeg")
   
 ---
 
