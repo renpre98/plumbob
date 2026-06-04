@@ -11,6 +11,10 @@
 /dist/plumbob-daemon
 /dist/PlumbobLink.dll
 
+# Release bundles — uploaded as GitHub release assets, not part of the source tree.
+/plumbob-v*.tar.gz
+/plumbob-v*.zip
+
 # Editor / OS scratch
 .idea/
 .vscode/
