@@ -3,8 +3,10 @@
 Drive the **SteelSeries Sims 4 Collector's Edition USB Plumbob** from Paralives.
 The dominant emotion of the actively selected Parafolk is mirrored on the
 real-world Plumbob in real time, with smooth color fades.
+  
+To be clear. At the beginning I had no clue how to mod paralives and thus a lot of work, especially analyzing paralives, was done by an LLM. 
 
-> [insert short demo gif / video here]
+> 
 
 ---
 
