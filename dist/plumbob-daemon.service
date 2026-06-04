@@ -1,6 +1,6 @@
 [Unit]
 Description=Plumbob daemon — drives the SteelSeries Sims 4 USB Plumbob via /dev/hidraw
-Documentation=https://github.com/redclu/plumbob
+Documentation=https://github.com/renpre98/plumbob
 # Don't even try if the device isn't plugged in.
 ConditionPathExistsGlob=/sys/bus/hid/devices/*1038:1500*
 
