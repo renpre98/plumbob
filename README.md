@@ -158,7 +158,7 @@ Build dependencies are intentionally minimal — the daemon uses only `anyhow`, 
 
 ## Limitations
 
-- **Linux only** today. A Windows daemon is on the roadmap; contributions welcome.
+- **Linux only** today. A Windows daemon is planned.
 - **Paralives-only** game side at present. The daemon already speaks GameSense-style `/game_event`, so a Sims 4 build is mostly configuration; a Sims 3 hook would need a script mod.
 - Mod reads private fields of `UIEmotions2` via reflection — robust against minor refactors, but a sufficiently large Paralives update can break it.
 
