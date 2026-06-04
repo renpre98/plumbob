@@ -2,7 +2,7 @@
 name = "plumbob"
 version = "1.0.0"
 edition = "2021"
-authors = ["René Preikschat <rene.preikschat@redclu.de>"]
+authors = ["renpre98 <reno.p@hotmail.de>"]
 license = "MIT"
 description = "Linux driver and middleware for the SteelSeries Sims 4 USB Plumbob (1038:1500)"
 
