@@ -10,11 +10,10 @@
     <ParaManaged>$(HOME)/.local/share/Steam/steamapps/common/Paralives/Paralives_Data/Managed</ParaManaged>
 
     <Version>1.0.0</Version>
-    <Authors>René Preikschat (redclu)</Authors>
-    <Company>redclu.de</Company>
+    <Authors>renpre98</Authors>
     <Product>Plumbob Link</Product>
     <Description>Drive the SteelSeries Sims 4 USB Plumbob from Paralives via plumbob-daemon.</Description>
-    <Copyright>Copyright © 2026 René Preikschat</Copyright>
+    <Copyright>Copyright © 2026 renpre98</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

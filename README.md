@@ -87,7 +87,7 @@ Launch Paralives. Load any household. The Plumbob now follows the active Parafol
 
 ## Configuration
 
-The plugin generates a config file at `BepInEx/config/de.redclu.plumboblink.cfg`. The defaults are sensible; tweak if needed:
+The plugin generates a config file at `BepInEx/config/io.github.renpre98.plumboblink.cfg`. The defaults are sensible; tweak if needed:
 
 | Key | Default | What it does |
 |---|---|---|

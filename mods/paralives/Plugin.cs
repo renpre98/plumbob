@@ -15,7 +15,7 @@ namespace PlumbobLink
     [BepInPlugin(PluginGuid, PluginName, PluginVersion)]
     public class Plugin : BaseUnityPlugin
     {
-        public const string PluginGuid = "de.redclu.plumboblink";
+        public const string PluginGuid = "io.github.renpre98.plumboblink";
         public const string PluginName = "Plumbob Link";
         public const string PluginVersion = "1.0.0";
 
