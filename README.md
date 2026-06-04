@@ -23,7 +23,7 @@ real-world Plumbob in real time, with smooth color fades.
 
 ## Requirements
 
-- **The hardware**: a SteelSeries Sims 4 Collector's Edition USB Plumbob (product 60038, USB ID `1038:1500`). This device was only sold with the UK/Ireland Sims 4 Collector's Edition — yes, it's rare.
+- **The hardware**: a SteelSeries Sims 4 Collector's Edition USB Plumbob (product 60038, USB ID `1038:1500`). This device was only sold with the Sims 4 Collector's Edition — yes, it's rare.
 - **Linux**. The daemon talks to `/dev/hidraw*` directly; there is no Windows build yet. Tested on Kubuntu 24.04.
 - **Paralives** (Steam, Early Access) on the same machine, running through Proton.
 - **BepInEx 5.4.x for Paralives** ([6xvl/paralives-plugins-index](https://github.com/6xvl/paralives-plugins-index) or upstream BepInEx).
@@ -166,9 +166,9 @@ Build dependencies are intentionally minimal — the daemon uses only `anyhow`, 
 
 ## Credits
 
-- Hardware reverse-engineering started from [Inma García Palazón's TS4PlumbobController](https://sourceforge.net/projects/ts4plumbobcontroller/) (Mac, 2014) — that's where the USB VID/PID and 32-byte report layout came from.
+- Hardware reverse-engineering started from [TS4PlumbobController](https://sourceforge.net/projects/ts4plumbobcontroller/) (Mac, 2014) — that's where the USB VID/PID and 32-byte report layout came from.
 - BepInEx / HarmonyX teams for the modding stack.
-- Paralodos team for Paralives.
+- Paralives team for Paralives.
 
 ## License
 
