@@ -1,0 +1,18 @@
+# Rust build output
+/target
+
+# .NET build output
+/mods/paralives/bin
+/mods/paralives/obj
+
+# Release-staged binaries — rebuild via `cargo build --release` and `dotnet build -c Release`,
+# the source artifacts (install.sh, .service, .rules) stay tracked.
+/dist/plumbob
+/dist/plumbob-daemon
+/dist/PlumbobLink.dll
+
+# Editor / OS scratch
+.idea/
+.vscode/
+*.swp
+.DS_Store

@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>PlumbobLink</AssemblyName>
+    <RootNamespace>PlumbobLink</RootNamespace>
+    <LangVersion>10</LangVersion>
+    <Nullable>disable</Nullable>
+    <NoWarn>$(NoWarn);CS0436;CS1701;CS1702</NoWarn>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <ParaManaged>$(HOME)/.local/share/Steam/steamapps/common/Paralives/Paralives_Data/Managed</ParaManaged>
+
+    <Version>1.0.0</Version>
+    <Authors>René Preikschat (redclu)</Authors>
+    <Company>redclu.de</Company>
+    <Product>Plumbob Link</Product>
+    <Description>Drive the SteelSeries Sims 4 USB Plumbob from Paralives via plumbob-daemon.</Description>
+    <Copyright>Copyright © 2026 René Preikschat</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="BepInEx">
+      <HintPath>libs/BepInEx.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>libs/0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>libs/Mono.Cecil.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+
+    <Reference Include="Paralives">
+      <HintPath>$(ParaManaged)/Paralives.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(ParaManaged)/UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(ParaManaged)/UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>
