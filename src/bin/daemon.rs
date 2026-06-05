@@ -119,33 +119,52 @@ async fn main() -> Result<()> {
 
 async fn worker(bob: Arc<Mutex<Plumbob>>, mut rx: watch::Receiver<Target>) {
     let mut current: Rgb = (0, 0, 0);
+    let mut last_warn_kind: Option<String> = None;
+
     loop {
         let target = *rx.borrow_and_update();
         let dur = Duration::from_millis(target.fade_ms);
-        let bob = bob.clone();
+        let bob_for_fade = bob.clone();
 
         // Run the fade in a blocking thread so the hidraw write doesn't stall the runtime.
         let from = current;
         let to = target.color;
         let fade_handle = task::spawn_blocking(move || {
-            let mut bob = bob.blocking_lock();
+            let mut bob = bob_for_fade.blocking_lock();
             effects::fade(&mut bob, from, to, dur)
         });
 
+        // Prefer the cancellation arm so a new target can preempt the running fade cleanly.
         tokio::select! {
-            r = fade_handle => {
-                if let Ok(Err(e)) = r { tracing::warn!("fade failed: {e:#}"); }
-                current = to;
-            }
+            biased;
             changed = rx.changed() => {
-                // New target came in mid-fade. The current fade thread keeps running
-                // briefly (we can't preempt the std::thread::sleep), but the next
-                // iteration picks up the newer target and overwrites.
+                // New target arrived mid-fade. The in-flight thread keeps running briefly
+                // (we can't preempt the std::thread::sleep inside fade()); the next loop
+                // iteration picks up the newer target.
                 if changed.is_err() { return; }
-                // We don't know exactly where the interrupted fade landed; approximating
-                // with the previous target is good enough — the next fade smooths it.
+                current = to; // approximation; the next fade smooths over it
+                continue;
+            }
+            r = fade_handle => {
+                if let Ok(Err(e)) = r {
+                    let kind = format!("{e:#}");
+                    // Avoid log spam when the same error repeats (e.g. device was
+                    // unplugged): warn once per distinct cause.
+                    if last_warn_kind.as_deref() != Some(kind.as_str()) {
+                        tracing::warn!("fade failed: {kind}");
+                        last_warn_kind = Some(kind);
+                    }
+                } else {
+                    last_warn_kind = None;
+                }
                 current = to;
             }
+        }
+
+        // The fade finished (or errored) on its own. Wait for the next target before
+        // looping — otherwise a stale, error-returning fade would re-run instantly.
+        if rx.changed().await.is_err() {
+            return;
         }
     }
 }

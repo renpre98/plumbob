@@ -9,7 +9,12 @@ Type=simple
 ExecStart=%h/.local/bin/plumbob-daemon
 Environment=RUST_LOG=info
 Restart=on-failure
-RestartSec=2
+RestartSec=10
+# Give up after 5 failed restarts in a minute, so a persistent failure can never
+# spam the journal (the v1.0.0 release had a bug where the worker tight-looped
+# on hidraw write errors after the device was unplugged).
+StartLimitBurst=5
+StartLimitIntervalSec=60
 # The daemon only opens /dev/hidraw*, binds to 127.0.0.1:27301, reads from $HOME/.config.
 # Nothing else needs to be writable. The defaults below harden against accidents.
 NoNewPrivileges=true
