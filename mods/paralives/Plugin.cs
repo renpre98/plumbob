@@ -17,7 +17,7 @@ namespace PlumbobLink
     {
         public const string PluginGuid = "io.github.renpre98.plumboblink";
         public const string PluginName = "Plumbob Link";
-        public const string PluginVersion = "1.0.0";
+        public const string PluginVersion = "1.0.1";
 
         internal static ManualLogSource Log;
         internal static ConfigEntry<string> CfgDaemonUrl;

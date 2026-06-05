@@ -163,7 +163,7 @@ Port `27301` is the SteelSeries GameSense default port, so the same daemon can a
 The device isn't visible to udev. Replug, then `systemctl --user restart plumbob-daemon`.
 
 **`curl` works but Paralives doesn't trigger color changes.**
-Check `<Paralives>/BepInEx/LogOutput.log` — you should see `Plumbob Link 1.0.0 loaded` at startup. If not, BepInEx didn't load: re-verify the Steam launch option `WINEDLLOVERRIDES="winhttp=n,b" %command%`.
+Check `<Paralives>/BepInEx/LogOutput.log` — you should see `Plumbob Link 1.0.1 loaded` at startup. If not, BepInEx didn't load: re-verify the Steam launch option `WINEDLLOVERRIDES="winhttp=n,b" %command%`.
 
 **Log says `plumbob-daemon not reachable`.**
 Daemon isn't running. Start with `systemctl --user start plumbob-daemon` or run `~/.local/bin/plumbob-daemon` in a terminal for live output.

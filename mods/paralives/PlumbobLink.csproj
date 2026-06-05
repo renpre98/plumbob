@@ -9,7 +9,7 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <ParaManaged>$(HOME)/.local/share/Steam/steamapps/common/Paralives/Paralives_Data/Managed</ParaManaged>
 
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Authors>renpre98</Authors>
     <Product>Plumbob Link</Product>
     <Description>Drive the SteelSeries Sims 4 USB Plumbob from Paralives via plumbob-daemon.</Description>
