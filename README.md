@@ -26,16 +26,16 @@ To be clear. At the beginning I had no clue how to mod paralives and thus a lot 
 ## Requirements
 
 - **The hardware**: a SteelSeries Sims 4 Collector's Edition USB Plumbob (product 60038, USB ID `1038:1500`). This device was only sold with the Sims 4 Collector's Edition — yes, it's rare.
-- **Linux**. The daemon talks to `/dev/hidraw*` directly; there is no Windows build yet. Tested on Kubuntu 24.04.
-- **Paralives** (Steam, Early Access) on the same machine, running through Proton.
+- **Linux or Windows**. The daemon ships for both. Linux talks to `/dev/hidraw*` directly; Windows uses the native HID stack via `hidapi`. Tested on Kubuntu 24.04 and Windows 10/11 x64.
+- **Paralives** (Steam, Early Access) on the same machine. Linux users go through Proton; Windows is native.
 - **BepInEx 5.4.x for Paralives** ([6xvl/paralives-plugins-index](https://github.com/6xvl/paralives-plugins-index) or upstream BepInEx).
 - Rust 1.80+ and .NET SDK 6.0+ if you want to build from source.
 
 ---
 
-## Install
+## Install — Linux
 
-### 1. Install the daemon (Linux side)
+### 1. Install the daemon
 
 Unpack the release archive, then:
 
@@ -65,7 +65,7 @@ The Plumbob should fade to green.
 
 If you don't already have BepInEx in your Paralives install:
 
-1. Download [BepInEx 5.4.23.2 (win_x64)](https://github.com/BepInEx/BepInEx/releases/tag/v5.4.23.2)
+1. Download [BepInEx 5.4.23.2 (win_x64)](https://github.com/BepInEx/BepInEx/releases/tag/v5.4.23.2).
 2. Extract the zip into your Paralives install folder (the one that contains `Paralives.exe`).
 3. In Steam, right-click **Paralives → Properties → Launch Options** and add:
    ```
@@ -75,13 +75,44 @@ If you don't already have BepInEx in your Paralives install:
 
 ### 3. Drop in the plugin
 
-Copy `PlumbobLink.dll` into:
+Copy `PlumbobLink.dll` into `<Paralives>/BepInEx/plugins/`.
+Launch Paralives. Load any household. The Plumbob follows the active Parafolk's mood.
+
+---
+
+## Install — Windows
+
+### 1. Run the daemon
+
+Unzip the Windows release somewhere convenient (e.g. `%USERPROFILE%\plumbob\`).
+Double-click `plumbob-daemon.exe`. A console window opens and prints:
 
 ```
-<Paralives>/BepInEx/plugins/
+listening on http://127.0.0.1:27301
 ```
 
-Launch Paralives. Load any household. The Plumbob now follows the active Parafolk's mood.
+Leave it running. To start automatically on login, drop a shortcut to
+`plumbob-daemon.exe` into `shell:startup` (paste that into the Run dialog,
+then drop the shortcut into the folder that opens).
+
+Verify in another console:
+
+```cmd
+curl -X POST http://127.0.0.1:27301/emotion -H "Content-Type: application/json" -d "{\"emotion\":\"Happy\"}"
+```
+
+The Plumbob should fade to green.
+
+### 2. Install BepInEx into Paralives
+
+1. Download [BepInEx 5.4.23.2 (win_x64)](https://github.com/BepInEx/BepInEx/releases/tag/v5.4.23.2).
+2. Extract the zip into your Paralives install folder (the one that contains `Paralives.exe`).
+3. Launch Paralives once and close it again — BepInEx generates its config files.
+
+### 3. Drop in the plugin
+
+Copy `PlumbobLink.dll` into `<Paralives>\BepInEx\plugins\`.
+Launch Paralives. Same result as on Linux.
 
 ---
 
@@ -148,19 +179,28 @@ Open an issue with the offending version. The mod relies on reflected field/meth
 ## Building from source
 
 ```bash
-# daemon + CLI
+# Linux daemon + CLI
 cargo build --release
-# the plugin (needs dotnet SDK + a local copy of BepInEx + Paralives DLLs)
+
+# Cross-build for Windows from Linux (needs mingw-w64 + the rust target):
+#   sudo apt install mingw-w64
+#   rustup target add x86_64-pc-windows-gnu
+cargo build --release --target x86_64-pc-windows-gnu
+
+# The plugin (needs dotnet SDK + libs/ + Paralives DLLs):
 cd mods/paralives && dotnet build -c Release
 ```
 
-Build dependencies are intentionally minimal — the daemon uses only `anyhow`, `tokio`, `axum`, `serde`, and `tracing` (no `libudev`, no `hidapi`).
+Build dependencies are minimal: on Linux the daemon uses only `anyhow`, `tokio`,
+`axum`, `serde`, and `tracing` — no `libudev`, no `hidapi`. On Windows the
+`hidapi` crate is added in via `[target.'cfg(windows)'.dependencies]` and uses
+the native HID stack with no extra runtime dependencies.
 
 ---
 
 ## Limitations
 
-- **Linux only** today. A Windows daemon is planned.
+- No auto-restart on Windows yet. Killing `plumbob-daemon.exe` and re-launching it works fine, but there's no Service/Tray wrapper.
 - **Paralives-only** game side at present. The daemon already speaks GameSense-style `/game_event`, so a Sims 4 build is mostly configuration; a Sims 3 hook would need a script mod.
 - Mod reads private fields of `UIEmotions2` via reflection — robust against minor refactors, but a sufficiently large Paralives update can break it.
 

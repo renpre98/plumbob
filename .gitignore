@@ -10,6 +10,7 @@
 /dist/plumbob
 /dist/plumbob-daemon
 /dist/PlumbobLink.dll
+/dist-windows/
 
 # Release bundles — uploaded as GitHub release assets, not part of the source tree.
 /plumbob-v*.tar.gz

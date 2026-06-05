@@ -27,6 +27,12 @@ serde_json = "1"
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 
+# Windows HID access. On Windows hidapi uses the OS-native SetupAPI/HID
+# stack with no extra runtime dependencies. On Linux we read /dev/hidraw
+# directly, so hidapi (which would pull libudev) is not needed there.
+[target.'cfg(windows)'.dependencies]
+hidapi = "2"
+
 [profile.release]
 lto = true
 strip = true
